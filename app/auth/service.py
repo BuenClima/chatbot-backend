@@ -5,7 +5,6 @@ from app.users import crud, schemas
 from app.auth import schemas as authschemas
 from app.core import security
 
-
 # Function to sign up a user
 def sign_up_user(user: schemas.UserCreate, db: Session) -> authschemas.AuthBase:
     """Sign up a new user.
@@ -24,10 +23,10 @@ def sign_up_user(user: schemas.UserCreate, db: Session) -> authschemas.AuthBase:
 
     db_user = crud.create_user(db=db, user=user)
 
-    access_token = security.create_access_token(data={"sub": str(db_user.id)})
+    tokens = security.create_tokens(db_user.id)
 
     return authschemas.AuthBase(
-        access_token=access_token,
+        tokens=tokens,
         token_type="bearer",
         user=schemas.UserRepr(
             id=db_user.id, email=db_user.email, is_active=db_user.is_active
@@ -58,10 +57,10 @@ def sign_in_user(
     if not security.verify_password(form_data.hashed_password, user.hashed_password):
         raise HTTPException(status_code=401, detail="Password incorrect")
 
-    access_token = security.create_access_token(data={"sub": str(user.id)})
+    tokens = security.create_tokens(user.id)
 
     return authschemas.AuthBase(
-        access_token=access_token,
+        tokens=tokens,
         token_type="bearer",
         user=schemas.UserRepr(id=user.id, email=user.email, is_active=user.is_active),
     )
