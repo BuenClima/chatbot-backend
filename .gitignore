@@ -53,3 +53,5 @@ dmypy.json
 
 # FastAPI
 .env
+
+junit
