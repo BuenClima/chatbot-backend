@@ -46,3 +46,20 @@ def mock_current_user():
     Mock the current user dependency 
     """
     return User(id=1, email="test@example.com", is_active=True)
+
+
+@pytest.fixture
+def mock_create_access_token():
+    """
+    Mock the create_access_token dependency
+    """
+    with patch('app.core.security.create_access_token') as mock_access_token:
+        yield mock_access_token
+
+@pytest.fixture
+def mock_create_refresh_token():
+    """
+    Mock the create_refresh_token dependency
+    """
+    with patch('app.core.security.create_refresh_token') as mock_refresh_token:
+        yield mock_refresh_token

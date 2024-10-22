@@ -15,7 +15,7 @@ client = TestClient(app)
 def test_sign_up_should_return_200_and_access_token(override_get_db, override_get_current_user, mock_db):
     user_data = {"email": "test@example.com", "hashed_password": "hashed_password"}
     mock_response = authschemas.AuthBase(
-        access_token="fake_access_token",
+        tokens={"access_token": "fake_access_token", "refresh_token": "fake_refresh_token"},
         token_type="bearer",
         user=schemas.UserRepr(id=1, email="test@example.com", is_active=True)
     )

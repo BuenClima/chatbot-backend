@@ -57,6 +57,7 @@ DATABASE_URL=postgresql://username:password@db:5432/dbname
 JWT_SECRET_KEY=your_secret_key
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=15
+REFRESH_TOKEN_EXPIRE_DAYS=30
 ```
 
 ### **3. Install dependencies**

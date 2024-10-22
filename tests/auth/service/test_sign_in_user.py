@@ -9,19 +9,22 @@ from app.users import schemas as userschemas
 def test_sign_in_user_success(mock_db):
     form_data = authschemas.AuthSignIn(email="test@example.com", hashed_password="password")
     db_user = userschemas.User(id=1, email="test@example.com", hashed_password="hashed_password", is_active=True)
-    access_token = "fake_access_token"
+    tokens= {
+        "access_token": "fake_access_token",
+        "refresh_token": "fake_refresh_token"
+    }
 
     with patch("app.users.crud.get_user_by_email", return_value=db_user) as mock_get_user_by_email, \
          patch("app.core.security.verify_password", return_value=True) as mock_verify_password, \
-         patch("app.core.security.create_access_token", return_value=access_token) as mock_create_access_token:
+         patch("app.core.security.create_tokens", return_value=tokens) as mock_create_tokens:
 
         result = service.sign_in_user(form_data, mock_db)
 
         mock_get_user_by_email.assert_called_once_with(mock_db, email=form_data.email)
         mock_verify_password.assert_called_once_with(form_data.hashed_password, db_user.hashed_password)
-        mock_create_access_token.assert_called_once_with(data={"sub": str(db_user.id)})
+        mock_create_tokens.assert_called_once_with(db_user.id)
 
-        assert result.access_token == access_token
+        assert result.tokens.model_dump() == tokens
         assert result.token_type == "bearer"
         assert result.user.id == db_user.id
         assert result.user.email == db_user.email
