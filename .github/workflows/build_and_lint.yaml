@@ -86,5 +86,26 @@ jobs:
           pip install pytest pytest-cov python-dotenv  # Install python-dotenv for loading .env files
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - name: 🧪 Run Tests
-        run: pytest --cov=app --cov-report=term-missing
+          - name: 🧪 Run Tests
+          id: run-tests
+          run: pytest --cov=app --cov-report=term-missing > pytest_output.txt
+
+      - name: 📄 Upload Coverage Results
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-results
+          path: pytest_output.txt
+
+      - name: 💬 Comment Coverage Results
+        uses: actions/github-script@v4
+        with:
+          script: |
+            const fs = require('fs');
+            const coverageResults = fs.readFileSync('pytest_output.txt', 'utf8');
+            const issue_number = context.payload.pull_request.number;
+            github.issues.createComment({
+              issue_number: issue_number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## Test Coverage Results\n\n${coverageResults}`
+            });
