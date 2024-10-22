@@ -90,12 +90,6 @@ jobs:
           id: run-tests
           run: pytest --cov=app --cov-report=term-missing > pytest_output.txt
 
-      - name: 📄 Upload Coverage Results
-        uses: actions/upload-artifact@v2
-        with:
-          name: coverage-results
-          path: pytest_output.txt
-
       - name: 💬 Comment Coverage Results
         uses: actions/github-script@v4
         with:
