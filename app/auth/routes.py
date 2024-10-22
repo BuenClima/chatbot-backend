@@ -4,6 +4,7 @@ from app.core.database import get_db
 from app.users import schemas
 from app.auth import service as authservice, schemas as authschemas
 from app.core.guards import get_current_user_refresh
+from app.core.security import create_tokens
 # Create a router for authentication-related routes
 router = APIRouter()
 
@@ -48,4 +49,4 @@ def refresh_access_token(
     :return: AuthBase
     :rtype: AuthBase
     """
-    return authservice.create_tokens(current_user.id)
+    return create_tokens(current_user.id)

@@ -1,6 +1,7 @@
 import pytest
 from app.core.security import create_tokens
 
+
 @pytest.mark.unit
 def test_create_tokens(mock_create_access_token, mock_create_refresh_token):
     user_id = 1
