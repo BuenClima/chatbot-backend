@@ -54,7 +54,8 @@ Create a `.env` file in the root directory with the following content:
 
 ```ini
 DATABASE_URL=postgresql://username:password@db:5432/dbname
-JWT_SECRET_KEY=your_secret_key
+ACCESS_JWT_SECRET=your_secret_key
+REFRESH_JWT_SECRET=your_secret_key
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=15
 ```
