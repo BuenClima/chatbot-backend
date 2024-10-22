@@ -1,0 +1,55 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# C extensions
+*.c
+*.cpp
+
+# Virtual environment directories
+env/
+venv/
+ENV/
+VENV/
+
+# macOS
+.DS_Store
+
+# Logs
+logs/
+*.log
+
+# Unit test / coverage results
+htmlcov/
+.tox/
+.nox/
+.coverage
+*.cover
+*.py,cover
+.cache
+coverage.xml
+nosetests.xml
+pytest_cache/
+*.pytest_cache/
+test_results/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# FastAPI
+.env
