@@ -25,9 +25,11 @@ jobs:
       - name: Create Environment File
         run: |
           echo "DATABASE_URL=postgresql://test:test@localhost/test" >> .env
-          echo "JWT_SECRET=test-token" >> .env
+          echo "ACCESS_JWT_SECRET=test-token" >> .env
+          echo "REFRESH_JWT_SECRET=test-token" >> .env
           echo "ALGORITHM=HS256" >> .env
           echo "ACCESS_TOKEN_EXPIRE_MINUTES=15" >> .env
+          echo "REFRESH_TOKEN_EXPIRE_DAYS=30" >> .env
 
       - name: 📦 Install Dependencies
         run: |
@@ -73,9 +75,11 @@ jobs:
       - name: Create Environment File
         run: |
           echo "DATABASE_URL=postgresql://test:test@localhost/test" >> .env
-          echo "JWT_SECRET=test-token" >> .env
+          echo "ACCESS_JWT_SECRET=test-token" >> .env
+          echo "REFRESH_JWT_SECRET=test-token" >> .env
           echo "ALGORITHM=HS256" >> .env
           echo "ACCESS_TOKEN_EXPIRE_MINUTES=15" >> .env
+          echo "REFRESH_TOKEN_EXPIRE_DAYS=30" >> .env
 
       - name: 📦 Install Dependencies
         run: |
